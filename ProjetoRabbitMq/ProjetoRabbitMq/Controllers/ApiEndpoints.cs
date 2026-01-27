@@ -6,6 +6,8 @@ public static class ApiEndpoints
 {
     public static void AddApiEndpoints(this WebApplication app)
     {
+        app.MapGet("relatorios", () => ReportList.Reports);
+
         app.MapPost("solicitar-relatorio/{name}", (string name) =>
         {
             var solicitation = new ReportSolicitation()
@@ -17,6 +19,8 @@ public static class ApiEndpoints
             };
 
             ReportList.Reports.Add(solicitation);
+
+            return Results.Ok(solicitation);
         });
     }
 }
