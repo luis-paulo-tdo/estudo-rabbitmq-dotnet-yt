@@ -20,6 +20,7 @@ public static class ApiEndpoints
                 ProcessedTime = null
             };
 
+            // Persistência fictícia
             ReportList.Reports.Add(solicitation);
 
             var eventRequest = new RequestedReportEvent(solicitation.Id, solicitation.Name);

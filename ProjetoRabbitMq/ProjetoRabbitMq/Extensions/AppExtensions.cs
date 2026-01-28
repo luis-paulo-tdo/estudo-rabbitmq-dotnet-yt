@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using ProjetoRabbitMq.Bus;
 
 namespace ProjetoRabbitMq.Extensions
 {
@@ -8,6 +9,8 @@ namespace ProjetoRabbitMq.Extensions
         {
             services.AddMassTransit(busConfigurator =>
             {
+                busConfigurator.AddConsumer<RequestedReportEventConsumer>();
+
                 busConfigurator.UsingRabbitMq((context, configurator) =>
                 {
                     // TODO: Obter endereço via appsettings

@@ -1,6 +1,6 @@
 ﻿namespace ProjetoRabbitMq.Reports;
 
-public static class ReportList
+internal static class ReportList
 {
     public static List<ReportSolicitation> Reports = new();
 }
