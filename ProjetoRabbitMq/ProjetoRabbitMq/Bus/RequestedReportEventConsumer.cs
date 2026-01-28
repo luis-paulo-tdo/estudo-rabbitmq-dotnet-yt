@@ -16,6 +16,11 @@ namespace ProjetoRabbitMq.Bus
         {
             var message = context.Message;
 
+            if (message.Name.Length <= 3)
+            {
+                throw new Exception("Nome inválido");
+            }
+
             _logger.LogInformation("Processando relatório ID: {Id}, Nome: {Nome}", message.Id, message.Name);
 
             // Delay
