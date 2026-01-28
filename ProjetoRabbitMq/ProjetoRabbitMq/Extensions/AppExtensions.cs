@@ -7,6 +7,8 @@ namespace ProjetoRabbitMq.Extensions
     {
         public static void AddRabbitMqService(this IServiceCollection services)
         {
+            services.AddTransient<IPublishBus, PublishBus>();
+
             services.AddMassTransit(busConfigurator =>
             {
                 busConfigurator.AddConsumer<RequestedReportEventConsumer>();

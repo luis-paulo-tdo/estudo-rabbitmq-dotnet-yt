@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using ProjetoRabbitMq.Bus;
 using ProjetoRabbitMq.Reports;
 
 namespace ProjetoRabbitMq.Controllers;
@@ -9,8 +10,7 @@ public static class ApiEndpoints
     {
         app.MapGet("relatorios", () => ReportList.Reports);
 
-        // TODO: Criar um Adapter/Wrapper para injetar o IBus
-        app.MapPost("solicitar-relatorio/{name}", async (string name, IBus bus) =>
+        app.MapPost("solicitar-relatorio/{name}", async (string name, IPublishBus bus, CancellationToken ct = default) =>
         {
             var solicitation = new ReportSolicitation()
             {
@@ -25,7 +25,7 @@ public static class ApiEndpoints
 
             var eventRequest = new RequestedReportEvent(solicitation.Id, solicitation.Name);
 
-            await bus.Publish(eventRequest);
+            await bus.PublishAsync(eventRequest, ct);
 
             return Results.Ok(solicitation);
         });
